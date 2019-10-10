@@ -11,7 +11,8 @@ namespace Compilador
     public partial class Analizador : Form
     {
         IList<ItensDataSource> item = new List<ItensDataSource>();
-        Regex ER = new Regex(@"(^(inteiro|decimal|texto|booleano)+(\s)+(([A-Za-z]{1})+[\w]{0,25})+(" + x + ")$)", RegexOptions.None);
+
+        Regex ER = new Regex(@"(inteiro|decimal|texto|booleano)+(\s)+((([a-z])|([a-z])+([\w])+)((;)|(\s)+(;)))");
         public Analizador()
         {
             this.MinimumSize = new System.Drawing.Size(413, 305);
@@ -34,9 +35,6 @@ namespace Compilador
             {
 
                 str[i] = str[i].Replace("\n", "");
-
-                str[i] = Regex.Replace(str[i], " ", "", RegexOptions.IgnoreCase);
-                int x = str[i].Length;
 
                 aux = str[i].Replace(";", "").Split(' ');
 
