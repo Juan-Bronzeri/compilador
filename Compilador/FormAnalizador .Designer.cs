@@ -131,10 +131,6 @@
             this.dgvEscrita.ReadOnly = true;
             this.dgvEscrita.Width = 63;
             // 
-            // itensBindingSource
-            // 
-            this.itensBindingSource.DataSource = typeof(Compilador.ItensDataSource);
-            // 
             // richTxtTexto
             // 
             this.richTxtTexto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
