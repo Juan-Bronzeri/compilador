@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -31,7 +29,8 @@ namespace Compilador
         {
             bool retornar = false;
             terminador = Convert.ToString(terminador[terminador.Length - 1]);
-            if (terminador == ";")
+            string aux = Terminador.GetTerminador();
+            if (terminador == ""+aux+"")
                 retornar = true;
             return retornar;
         }
@@ -69,7 +68,6 @@ namespace Compilador
             dgvResultado.DataSource = null;
             item.Clear();
 
-            int cnt = 0;
             string[] aux;
 
             string[] str = richTxtTexto.Text.Split('\n');
@@ -159,6 +157,12 @@ namespace Compilador
         private void dataGridView1_MouseHover()
         {
             dgvResultado.CurrentRow.Selected = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form1 form = new Form1();
+            form.Show(); 
         }
     }
 }
