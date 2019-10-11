@@ -34,15 +34,15 @@
             this.btnCompilar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.dgvResultado = new System.Windows.Forms.DataGridView();
-            this.richTxtTexto = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.itensDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.linhaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.escritaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itensDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.richTxtTexto = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnTerminador = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itensDataSourceBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             // btnLimpar
             // 
             this.btnLimpar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLimpar.Location = new System.Drawing.Point(423, 78);
+            this.btnLimpar.Location = new System.Drawing.Point(423, 74);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpar.TabIndex = 2;
@@ -95,6 +95,38 @@
             this.dgvResultado.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvResultado.Size = new System.Drawing.Size(486, 113);
             this.dgvResultado.TabIndex = 4;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // linhaDataGridViewTextBoxColumn
+            // 
+            this.linhaDataGridViewTextBoxColumn.DataPropertyName = "linha";
+            this.linhaDataGridViewTextBoxColumn.HeaderText = "linha";
+            this.linhaDataGridViewTextBoxColumn.Name = "linhaDataGridViewTextBoxColumn";
+            this.linhaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tipoDataGridViewTextBoxColumn
+            // 
+            this.tipoDataGridViewTextBoxColumn.DataPropertyName = "tipo";
+            this.tipoDataGridViewTextBoxColumn.HeaderText = "tipo";
+            this.tipoDataGridViewTextBoxColumn.Name = "tipoDataGridViewTextBoxColumn";
+            this.tipoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // escritaDataGridViewTextBoxColumn
+            // 
+            this.escritaDataGridViewTextBoxColumn.DataPropertyName = "escrita";
+            this.escritaDataGridViewTextBoxColumn.HeaderText = "escrita";
+            this.escritaDataGridViewTextBoxColumn.Name = "escritaDataGridViewTextBoxColumn";
+            this.escritaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // itensDataSourceBindingSource
+            // 
+            this.itensDataSourceBindingSource.DataSource = typeof(Compilador.ItensDataSource);
             // 
             // richTxtTexto
             // 
@@ -132,47 +164,15 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Resultado da compilação";
             // 
-            // button1
+            // btnTerminador
             // 
-            this.button1.Location = new System.Drawing.Point(424, 131);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // itensDataSourceBindingSource
-            // 
-            this.itensDataSourceBindingSource.DataSource = typeof(Compilador.ItensDataSource);
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // linhaDataGridViewTextBoxColumn
-            // 
-            this.linhaDataGridViewTextBoxColumn.DataPropertyName = "linha";
-            this.linhaDataGridViewTextBoxColumn.HeaderText = "linha";
-            this.linhaDataGridViewTextBoxColumn.Name = "linhaDataGridViewTextBoxColumn";
-            this.linhaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoDataGridViewTextBoxColumn
-            // 
-            this.tipoDataGridViewTextBoxColumn.DataPropertyName = "tipo";
-            this.tipoDataGridViewTextBoxColumn.HeaderText = "tipo";
-            this.tipoDataGridViewTextBoxColumn.Name = "tipoDataGridViewTextBoxColumn";
-            this.tipoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // escritaDataGridViewTextBoxColumn
-            // 
-            this.escritaDataGridViewTextBoxColumn.DataPropertyName = "escrita";
-            this.escritaDataGridViewTextBoxColumn.HeaderText = "escrita";
-            this.escritaDataGridViewTextBoxColumn.Name = "escritaDataGridViewTextBoxColumn";
-            this.escritaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.btnTerminador.Location = new System.Drawing.Point(423, 186);
+            this.btnTerminador.Name = "btnTerminador";
+            this.btnTerminador.Size = new System.Drawing.Size(75, 23);
+            this.btnTerminador.TabIndex = 7;
+            this.btnTerminador.Text = "Terminador";
+            this.btnTerminador.UseVisualStyleBackColor = true;
+            this.btnTerminador.Click += new System.EventHandler(this.terminador_Click);
             // 
             // Analizador
             // 
@@ -180,7 +180,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(510, 356);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnTerminador);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTxtTexto);
@@ -206,7 +206,7 @@
         private System.Windows.Forms.RichTextBox richTxtTexto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTerminador;
         private System.Windows.Forms.BindingSource itensDataSourceBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn linhaDataGridViewTextBoxColumn;

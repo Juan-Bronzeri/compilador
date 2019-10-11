@@ -159,9 +159,9 @@ namespace Compilador
             dgvResultado.CurrentRow.Selected = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void terminador_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
+            FormTerminador form = new FormTerminador();
             form.Show(); 
         }
     }
