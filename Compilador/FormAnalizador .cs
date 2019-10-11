@@ -30,6 +30,7 @@ namespace Compilador
         bool autenticarTerminador(string terminador)
         {
             bool retornar = false;
+            terminador = Convert.ToString(terminador[terminador.Length - 1]);
             if (terminador == ";")
                 retornar = true;
             return retornar;
@@ -39,9 +40,10 @@ namespace Compilador
         {
             bool retornar = false;
 
-            autenticarTamanhoVariavel();
+            if (autenticarTamanhoVariavel(variavel) && autenticarPalavraDaVariavel(variavel))
+                retornar = true;
 
-            return true;
+            return retornar;
         }
 
         bool autenticarTamanhoVariavel(string variavel)
@@ -52,9 +54,14 @@ namespace Compilador
             return retornar;
         }
 
-        bool autenticarPalavraDaVariavel()
+        bool autenticarPalavraDaVariavel(string variavel)
         {
             bool retornar = false;
+            Regex var = new Regex(@"[A-Z]+|[a-z]+|[_]");
+            string x = Convert.ToString(variavel[0]);
+            if (var.IsMatch(x) == true)
+                retornar = true;
+            return retornar;
         }
 
         private void Compilar_Click(object sender, EventArgs e)
@@ -78,8 +85,8 @@ namespace Compilador
                         if (autenticarTerminador(aux[aux.Length - 1]))
                         {
                             for (int x = 0; x < aux.Length; x++)
-                            {
-                                if (aux[x] != " " && x != 0 && x != aux.Length - 1)
+                            { 
+                                if (aux[x] == "" || x == 0 || x == aux.Length-1)
                                 {
                                     aux[x] = null;
                                 }
@@ -88,7 +95,14 @@ namespace Compilador
                             {
                                 if (aux[x] != null)
                                 {
-                                    if ()
+                                    if (autenticarVariavel(aux[x]))
+                                    {
+                                        ItensDataSource Item = new ItensDataSource();
+                                        Item.status = "Compilado";
+                                        Item.escrita = str[i] + Environment.NewLine;
+                                        item.Add(Item);
+                                    }
+                                        
                                 }
                             }
                         }
