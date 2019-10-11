@@ -12,11 +12,49 @@ namespace Compilador
     {
         IList<ItensDataSource> item = new List<ItensDataSource>();
 
-        Regex ER = new Regex(@"(inteiro|decimal|texto|booleano)+(\s)+((([a-z])|([a-z])+([\w])+)((;)|(\s)+(;)))");
+        Regex ER = new Regex(@"\w+\s+[\w]+((\s+.)|(.))");
         public Analizador()
         {
             this.MinimumSize = new System.Drawing.Size(413, 305);
             InitializeComponent();
+        }
+
+        bool autenticarTipoVariavel(string tipo)
+        {
+            bool retorno = false;
+            if (tipo == "int" || tipo == "string" || tipo == "bool" || tipo == "float")
+                retorno = true;
+            return retorno;
+        }
+
+        bool autenticarTerminador(string terminador)
+        {
+            bool retornar = false;
+            if (terminador == ";")
+                retornar = true;
+            return retornar;
+        }
+
+        bool autenticarVariavel(string variavel)
+        {
+            bool retornar = false;
+
+            autenticarTamanhoVariavel();
+
+            return true;
+        }
+
+        bool autenticarTamanhoVariavel(string variavel)
+        {
+            bool retornar = false;
+            if (variavel.Length > 0 && variavel.Length < 10)
+                retornar = true;
+            return retornar;
+        }
+
+        bool autenticarPalavraDaVariavel()
+        {
+            bool retornar = false;
         }
 
         private void Compilar_Click(object sender, EventArgs e)
@@ -28,87 +66,42 @@ namespace Compilador
             string[] aux;
 
             string[] str = richTxtTexto.Text.Split('\n');
-
-            Hashtable tipo = new Hashtable();
-
             for (int i = 0; i < str.Length; i++)
             {
-
                 str[i] = str[i].Replace("\n", "");
-
-                aux = str[i].Replace(";", "").Split(' ');
-
-                if (aux.Length >= 2)
+                str[i] = str[i].Trim();
+                if (ER.IsMatch(str[i]) == true)
                 {
-                    if (aux[1] != "booleano" && aux[1] != "texto" && aux[1] != "inteiro" && aux[1] != "decimal")
+                    aux = str[i].Split(' ');
+                    if (autenticarTipoVariavel(aux[0]))
                     {
-                        if (aux.Length == 2)
+                        if (autenticarTerminador(aux[aux.Length - 1]))
                         {
-                            if (ER.IsMatch(str[i]) != true && aux[1].Length > 10)
+                            for (int x = 0; x < aux.Length; x++)
                             {
-                                ItensDataSource Item = new ItensDataSource();
-                                Item.status = "ERRO";
-                                Item.linha = Convert.ToString(i + 1);
-                                Item.tipo = "Erro de sintáxe e truncamento";
-                                Item.escrita = str[i] + Environment.NewLine;
-                                item.Add(Item);
-                                cnt++;
+                                if (aux[x] != " " && x != 0 && x != aux.Length - 1)
+                                {
+                                    aux[x] = null;
+                                }
                             }
-                            else if (ER.IsMatch(str[i]) != true)
+                            for (int x = 0; x < aux.Length; x++)
                             {
-                                ItensDataSource Item = new ItensDataSource();
-                                Item.status = "ERRO";
-                                Item.linha = Convert.ToString(i + 1);
-                                Item.tipo = "Erro de sintáxe ";
-                                Item.escrita = str[i] + Environment.NewLine;
-                                item.Add(Item);
-                                cnt++;
-                            }
-                            else if (aux[1].Length > 10)
-                            {
-                                ItensDataSource Item = new ItensDataSource();
-                                Item.status = "ERRO";
-                                Item.linha = Convert.ToString(i + 1);
-                                Item.tipo = "Erro de truncamento ";
-                                Item.escrita = str[i] + Environment.NewLine;
-                                item.Add(Item);
-                                cnt++;
-                            }
-                            else if (ER.IsMatch(str[i]) == true && tipo.ContainsKey(aux[1]))
-                            {
-                                ItensDataSource Item = new ItensDataSource();
-                                Item.status = "ERRO";
-                                Item.linha = Convert.ToString(i + 1);
-                                Item.tipo = "Erro de variavel já definida ";
-                                Item.escrita = str[i] + Environment.NewLine;
-                                item.Add(Item);
-                                cnt++;
-                            }
-                            else
-                            {
-                                tipo[aux[1]] = "";
+                                if (aux[x] != null)
+                                {
+                                    if ()
+                                }
                             }
                         }
-                        else if (aux.Length > 2)
-                        {
-                            ItensDataSource Item = new ItensDataSource();
-                            Item.status = "ERRO";
-                            Item.linha = Convert.ToString(i + 1);
-                            Item.tipo = "Erro, tentando declarar mais de uma variável na mesma linha";
-                            Item.escrita = str[i] + Environment.NewLine;
-                            item.Add(Item);
-                            cnt++;
-                        }
-                        else
-                        {
-                            ItensDataSource Item = new ItensDataSource();
-                            Item.status = "ERRO";
-                            Item.linha = Convert.ToString(i + 1);
-                            Item.tipo = "Erro de sintáxe, não existe um nome para a variavel";
-                            Item.escrita = str[i] + Environment.NewLine;
-                            item.Add(Item);
-                            cnt++;
-                        }
+                    }
+                    else
+                    {
+                        ItensDataSource Item = new ItensDataSource();
+                        Item.status = "ERRO";
+                        Item.linha = Convert.ToString(i + 1);
+                        Item.tipo = "Erro, tipo inválido";
+                        Item.escrita = str[i] + Environment.NewLine;
+                        item.Add(Item);
+                        cnt++;
                     }
                 }
                 else
@@ -116,28 +109,10 @@ namespace Compilador
                     ItensDataSource Item = new ItensDataSource();
                     Item.status = "ERRO";
                     Item.linha = Convert.ToString(i + 1);
-                    Item.tipo = "Erro, nome da váriavel incorreto";
+                    Item.tipo = "Erro de sintáxe";
                     Item.escrita = str[i] + Environment.NewLine;
                     item.Add(Item);
                     cnt++;
-                }
-                if (cnt == 0)
-                {
-                    if (str.Length == 1)
-                    {
-                        dgvResultado.AutoResizeColumns();
-                        ItensDataSource Item = new ItensDataSource();
-                        Item.status = "Compilado";
-                        item.Add(Item);
-                        dgvResultado.ForeColor = Color.Black;
-                        dgvResultado.DataSource = item;
-                    }
-                }
-                else
-                {
-                    dgvResultado.AutoResizeColumns();
-                    dgvResultado.ForeColor = Color.Red;
-                    dgvResultado.DataSource = item;
                 }
             }
             dataGridView1_MouseHover();
