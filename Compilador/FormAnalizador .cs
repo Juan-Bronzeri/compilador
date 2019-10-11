@@ -84,9 +84,10 @@ namespace Compilador
                     {
                         if (autenticarTerminador(aux[aux.Length - 1]))
                         {
+                            aux = aux[aux.Length - 1].Split(';');
                             for (int x = 0; x < aux.Length; x++)
-                            { 
-                                if (aux[x] == "" || x == 0 || x == aux.Length-1)
+                            {
+                                if (aux[x] == "")
                                 {
                                     aux[x] = null;
                                 }
@@ -95,16 +96,26 @@ namespace Compilador
                             {
                                 if (aux[x] != null)
                                 {
-                                    if (autenticarVariavel(aux[x]))
+                                    if (!autenticarVariavel(aux[x]))
                                     {
                                         ItensDataSource Item = new ItensDataSource();
-                                        Item.status = "Compilado";
+                                        Item.status = "ERRO";
+                                        Item.linha = Convert.ToString(i + 1);
+                                        Item.tipo = "Erro, variavel inválida";
                                         Item.escrita = str[i] + Environment.NewLine;
                                         item.Add(Item);
                                     }
-                                        
                                 }
                             }
+                        }
+                        else
+                        {
+                            ItensDataSource Item = new ItensDataSource();
+                            Item.status = "ERRO";
+                            Item.linha = Convert.ToString(i + 1);
+                            Item.tipo = "Erro, terminador inválido";
+                            Item.escrita = str[i] + Environment.NewLine;
+                            item.Add(Item);
                         }
                     }
                     else
@@ -115,7 +126,6 @@ namespace Compilador
                         Item.tipo = "Erro, tipo inválido";
                         Item.escrita = str[i] + Environment.NewLine;
                         item.Add(Item);
-                        cnt++;
                     }
                 }
                 else
@@ -126,9 +136,17 @@ namespace Compilador
                     Item.tipo = "Erro de sintáxe";
                     Item.escrita = str[i] + Environment.NewLine;
                     item.Add(Item);
-                    cnt++;
                 }
             }
+            if(item.Count <= 0)
+            {
+                ItensDataSource Item = new ItensDataSource();
+                Item.status = "Compilado";
+                item.Add(Item);
+                dgvResultado.DataSource = item;
+            }
+            else
+                dgvResultado.DataSource = item;
             dataGridView1_MouseHover();
         }
         private void BtnLimpar_Click(object sender, EventArgs e)
@@ -140,7 +158,7 @@ namespace Compilador
         //bloqueia a seleção na posição 0 do datagridview
         private void dataGridView1_MouseHover()
         {
-            this.dgvResultado.CurrentRow.Selected = false;
+            dgvResultado.CurrentRow.Selected = false;
         }
     }
 }
