@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Compilador
 {
-    static class Terminador
+    static class StaticTerminador
     {
         static private string terminador;  // the name field
 

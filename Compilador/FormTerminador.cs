@@ -19,18 +19,18 @@ namespace Compilador
 
         private void PontoVirgula_Click(object sender, EventArgs e)
         {
-            Terminador.SetTerminador(";");
+            StaticTerminador.SetTerminador(";");
         }
 
         private void btnSemTerminador_Click(object sender, EventArgs e)
         {
-            Terminador.SetTerminador("");
+            StaticTerminador.SetTerminador("");
         }
 
         private void btnOutro_Click(object sender, EventArgs e)
         {
             string aux = txtOutro.Text;
-            Terminador.SetTerminador(""+aux+"");
+            StaticTerminador.SetTerminador(""+aux+"");
         }
     }
 }

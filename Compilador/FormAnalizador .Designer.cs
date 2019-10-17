@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTerminador = new System.Windows.Forms.Button();
+            this.btnVariavel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itensDataSourceBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -174,12 +175,23 @@
             this.btnTerminador.UseVisualStyleBackColor = true;
             this.btnTerminador.Click += new System.EventHandler(this.terminador_Click);
             // 
+            // btnVariavel
+            // 
+            this.btnVariavel.Location = new System.Drawing.Point(423, 157);
+            this.btnVariavel.Name = "btnVariavel";
+            this.btnVariavel.Size = new System.Drawing.Size(75, 23);
+            this.btnVariavel.TabIndex = 8;
+            this.btnVariavel.Text = "Variável";
+            this.btnVariavel.UseVisualStyleBackColor = true;
+            this.btnVariavel.Click += new System.EventHandler(this.btnVariavel_Click);
+            // 
             // Analizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(510, 356);
+            this.Controls.Add(this.btnVariavel);
             this.Controls.Add(this.btnTerminador);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -212,6 +224,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn linhaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn escritaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnVariavel;
     }
 }
 

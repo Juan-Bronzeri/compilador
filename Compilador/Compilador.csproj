@@ -58,15 +58,25 @@
     <Compile Include="FormAnalizador .Designer.cs">
       <DependentUpon>FormAnalizador .cs</DependentUpon>
     </Compile>
+    <Compile Include="FormVariavel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVariavel.Designer.cs">
+      <DependentUpon>FormVariavel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ItensDataSource.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Terminador.cs" />
+    <Compile Include="StaticTamanhoVariavel.cs" />
+    <Compile Include="StaticTerminador.cs" />
     <EmbeddedResource Include="FormTerminador.resx">
       <DependentUpon>FormTerminador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAnalizador .resx">
       <DependentUpon>FormAnalizador .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVariavel.resx">
+      <DependentUpon>FormVariavel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

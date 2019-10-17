@@ -29,7 +29,7 @@ namespace Compilador
         {
             bool retornar = false;
             terminador = Convert.ToString(terminador[terminador.Length - 1]);
-            string aux = Terminador.GetTerminador();
+            string aux = StaticTerminador.GetTerminador();
             if (terminador == ""+aux+"")
                 retornar = true;
             return retornar;
@@ -38,17 +38,15 @@ namespace Compilador
         bool autenticarVariavel(string variavel)
         {
             bool retornar = false;
-
-            if (autenticarTamanhoVariavel(variavel) && autenticarPalavraDaVariavel(variavel))
+            if (AutenticarTamanhoVariavel(variavel, StaticTamanhoVariavel.GetTamanhoVariavel()) && autenticarPalavraDaVariavel(variavel))
                 retornar = true;
-
             return retornar;
         }
 
-        bool autenticarTamanhoVariavel(string variavel)
+        bool AutenticarTamanhoVariavel(string variavel, int tamanho)
         {
             bool retornar = false;
-            if (variavel.Length > 0 && variavel.Length < 10)
+            if (variavel.Length > 0 && variavel.Length < tamanho)
                 retornar = true;
             return retornar;
         }
@@ -62,48 +60,60 @@ namespace Compilador
                 retornar = true;
             return retornar;
         }
-
         private void Compilar_Click(object sender, EventArgs e)
         {
             dgvResultado.DataSource = null;
             item.Clear();
 
             string[] aux;
+            int i = 1;
 
             string[] str = richTxtTexto.Text.Split('\n');
-            for (int i = 0; i < str.Length; i++)
+            if(str[0] == "var")
             {
-                str[i] = str[i].Replace("\n", "");
-                str[i] = str[i].Trim();
-                if (ER.IsMatch(str[i]) == true)
+                while (str[i] != "begin")
                 {
-                    aux = str[i].Split(' ');
-                    if (autenticarTipoVariavel(aux[0]))
+                    str[i] = str[i].Replace("\n", "");
+                    str[i] = str[i].Trim();
+                    if (ER.IsMatch(str[i]) == true)
                     {
-                        if (autenticarTerminador(aux[aux.Length - 1]))
+                        aux = str[i].Split(' ');
+                        if (autenticarTipoVariavel(aux[0]))
                         {
-                            aux = aux[aux.Length - 1].Split(';');
-                            for (int x = 0; x < aux.Length; x++)
+                            if (autenticarTerminador(aux[aux.Length - 1]))
                             {
-                                if (aux[x] == "")
+                                aux = aux[aux.Length - 1].Split(';');
+                                for (int x = 0; x < aux.Length; x++)
                                 {
-                                    aux[x] = null;
-                                }
-                            }
-                            for (int x = 0; x < aux.Length; x++)
-                            {
-                                if (aux[x] != null)
-                                {
-                                    if (!autenticarVariavel(aux[x]))
+                                    if (aux[x] == "")
                                     {
-                                        ItensDataSource Item = new ItensDataSource();
-                                        Item.status = "ERRO";
-                                        Item.linha = Convert.ToString(i + 1);
-                                        Item.tipo = "Erro, variavel inválida";
-                                        Item.escrita = str[i] + Environment.NewLine;
-                                        item.Add(Item);
+                                        aux[x] = null;
                                     }
                                 }
+                                for (int x = 0; x < aux.Length; x++)
+                                {
+                                    if (aux[x] != null)
+                                    {
+                                        if (!autenticarVariavel(aux[x]))
+                                        {
+                                            ItensDataSource Item = new ItensDataSource();
+                                            Item.status = "ERRO";
+                                            Item.linha = Convert.ToString(i + 1);
+                                            Item.tipo = "Erro, variavel inválida";
+                                            Item.escrita = str[i] + Environment.NewLine;
+                                            item.Add(Item);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ItensDataSource Item = new ItensDataSource();
+                                Item.status = "ERRO";
+                                Item.linha = Convert.ToString(i + 1);
+                                Item.tipo = "Erro, terminador inválido";
+                                Item.escrita = str[i] + Environment.NewLine;
+                                item.Add(Item);
                             }
                         }
                         else
@@ -111,7 +121,7 @@ namespace Compilador
                             ItensDataSource Item = new ItensDataSource();
                             Item.status = "ERRO";
                             Item.linha = Convert.ToString(i + 1);
-                            Item.tipo = "Erro, terminador inválido";
+                            Item.tipo = "Erro, tipo inválido";
                             Item.escrita = str[i] + Environment.NewLine;
                             item.Add(Item);
                         }
@@ -121,22 +131,79 @@ namespace Compilador
                         ItensDataSource Item = new ItensDataSource();
                         Item.status = "ERRO";
                         Item.linha = Convert.ToString(i + 1);
-                        Item.tipo = "Erro, tipo inválido";
+                        Item.tipo = "Erro de sintáxe";
                         Item.escrita = str[i] + Environment.NewLine;
                         item.Add(Item);
                     }
+                    i++;
                 }
-                else
+                if(str[i] == "begin")
                 {
-                    ItensDataSource Item = new ItensDataSource();
-                    Item.status = "ERRO";
-                    Item.linha = Convert.ToString(i + 1);
-                    Item.tipo = "Erro de sintáxe";
-                    Item.escrita = str[i] + Environment.NewLine;
-                    item.Add(Item);
-                }
+                    while (str[i] != "end" | str.Length < i)
+                    {
+                        if (str[i] != "begin")
+                        {
+                            Regex ER = new Regex(@"^[A-Za-z]{1}[\w]{0,24}(|(\s+))(=){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}){1}(|(\s+))((\|\-|\+|\/){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}){1})*(((.){1})|(\s+(.){1}))$");
+                            str[i] = str[i].Replace("\n", "");
+                            str[i] = str[i].Trim();
+                            if (ER.IsMatch(str[i]) == true)
+                            {
+                                aux = str[i].Split(' ');
+                                if (autenticarTerminador(aux[aux.Length - 1]))
+                                {
+                                    char a = Convert.ToChar(StaticTerminador.GetTerminador());
+                                    aux = str[i].Split('+', '*', '/', '-', '=', a);
+                                    for (int x = 0; x < aux.Length; x++)
+                                    {
+                                        if (aux[x] != " ")
+                                        {
+                                            if (!autenticarVariavel(aux[x]))
+                                            {
+                                                ItensDataSource Item = new ItensDataSource();
+                                                Item.status = "ERRO";
+                                                Item.linha = Convert.ToString(i + 1);
+                                                Item.tipo = "Erro, variavel inválida";
+                                                Item.escrita = str[i] + Environment.NewLine;
+                                                item.Add(Item);
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    ItensDataSource Item = new ItensDataSource();
+                                    Item.status = "ERRO";
+                                    Item.linha = Convert.ToString(i + 1);
+                                    Item.tipo = "Erro, terminador inválido";
+                                    Item.escrita = str[i] + Environment.NewLine;
+                                    item.Add(Item);
+                                }
+                            }
+                            else
+                            {
+                                ItensDataSource Item = new ItensDataSource();
+                                Item.status = "ERRO";
+                                Item.linha = Convert.ToString(i + 1);
+                                Item.tipo = "Erro de sintáxe";
+                                Item.escrita = str[i] + Environment.NewLine;
+                                item.Add(Item);
+                            }
+                        }
+                        i++;
+                    }
+                }  
             }
-            if(item.Count <= 0)
+            else
+            {
+                ItensDataSource Item = new ItensDataSource();
+                Item.status = "ERRO";
+                Item.linha = Convert.ToString(i);
+                Item.tipo = "Erro, precisa declarar o inializador das variaveis";
+                Item.escrita = str[i-1];
+                item.Add(Item);
+            }
+            if (item.Count <= 0)
             {
                 ItensDataSource Item = new ItensDataSource();
                 Item.status = "Compilado";
@@ -163,6 +230,12 @@ namespace Compilador
         {
             FormTerminador form = new FormTerminador();
             form.Show(); 
+        }
+
+        private void btnVariavel_Click(object sender, EventArgs e)
+        {
+            FormVariavel form = new FormVariavel();
+            form.Show();
         }
     }
 }
