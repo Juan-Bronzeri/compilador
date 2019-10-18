@@ -143,7 +143,8 @@ namespace Compilador
                     {
                         if (str[i] != "begin")
                         {
-                            Regex ER = new Regex(@"^[A-Za-z]{1}[\w]{0,24}(|(\s+))(=){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}){1}(|(\s+))((\|\-|\+|\/){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}){1})*(((.){1})|(\s+(.){1}))$");
+                            Regex ER2 = new Regex(@"[0-9]+");
+                            Regex ER = new Regex(@"^(|(\s+))[A-Za-z]{1}[\w]{0,24}(|(\s+))(=){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|(\s+))((\|\-|\+|\/){1}(|(\s+))(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|(\s+)))*(((\W){1})|(\s+(\W){1}))|(\s+)$");
                             str[i] = str[i].Replace("\n", "");
                             str[i] = str[i].Trim();
                             if (ER.IsMatch(str[i]) == true)
@@ -155,7 +156,8 @@ namespace Compilador
                                     aux = str[i].Split('+', '*', '/', '-', '=', a);
                                     for (int x = 0; x < aux.Length; x++)
                                     {
-                                        if (aux[x] != " ")
+                                        aux[x].Trim();
+                                        if (aux[x] != "" && ER2.IsMatch(aux[x]) == true)
                                         {
                                             if (!autenticarVariavel(aux[x]))
                                             {
@@ -191,6 +193,8 @@ namespace Compilador
                             }
                         }
                         i++;
+                        if (str[i] == "end")
+                            break;
                     }
                 }  
             }
