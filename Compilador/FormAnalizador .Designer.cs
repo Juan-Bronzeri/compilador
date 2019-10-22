@@ -34,16 +34,16 @@
             this.btnCompilar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.dgvResultado = new System.Windows.Forms.DataGridView();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.linhaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.escritaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itensDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.richTxtTexto = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTerminador = new System.Windows.Forms.Button();
             this.btnVariavel = new System.Windows.Forms.Button();
+            this.itensDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itensDataSourceBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -83,10 +83,10 @@
             this.dgvResultado.BackgroundColor = System.Drawing.Color.Gray;
             this.dgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResultado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.statusDataGridViewTextBoxColumn,
-            this.linhaDataGridViewTextBoxColumn,
-            this.tipoDataGridViewTextBoxColumn,
-            this.escritaDataGridViewTextBoxColumn});
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
             this.dgvResultado.DataSource = this.itensDataSourceBindingSource;
             this.dgvResultado.GridColor = System.Drawing.Color.Black;
             this.dgvResultado.Location = new System.Drawing.Point(12, 231);
@@ -96,38 +96,6 @@
             this.dgvResultado.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvResultado.Size = new System.Drawing.Size(486, 113);
             this.dgvResultado.TabIndex = 4;
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // linhaDataGridViewTextBoxColumn
-            // 
-            this.linhaDataGridViewTextBoxColumn.DataPropertyName = "linha";
-            this.linhaDataGridViewTextBoxColumn.HeaderText = "linha";
-            this.linhaDataGridViewTextBoxColumn.Name = "linhaDataGridViewTextBoxColumn";
-            this.linhaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoDataGridViewTextBoxColumn
-            // 
-            this.tipoDataGridViewTextBoxColumn.DataPropertyName = "tipo";
-            this.tipoDataGridViewTextBoxColumn.HeaderText = "tipo";
-            this.tipoDataGridViewTextBoxColumn.Name = "tipoDataGridViewTextBoxColumn";
-            this.tipoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // escritaDataGridViewTextBoxColumn
-            // 
-            this.escritaDataGridViewTextBoxColumn.DataPropertyName = "escrita";
-            this.escritaDataGridViewTextBoxColumn.HeaderText = "escrita";
-            this.escritaDataGridViewTextBoxColumn.Name = "escritaDataGridViewTextBoxColumn";
-            this.escritaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // itensDataSourceBindingSource
-            // 
-            this.itensDataSourceBindingSource.DataSource = typeof(Compilador.ItensDataSource);
             // 
             // richTxtTexto
             // 
@@ -185,6 +153,38 @@
             this.btnVariavel.UseVisualStyleBackColor = true;
             this.btnVariavel.Click += new System.EventHandler(this.btnVariavel_Click);
             // 
+            // itensDataSourceBindingSource
+            // 
+            this.itensDataSourceBindingSource.DataSource = typeof(Compilador.ItensDataSource);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "status";
+            this.dataGridViewTextBoxColumn1.HeaderText = "status";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "linha";
+            this.dataGridViewTextBoxColumn2.HeaderText = "linha";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "tipo";
+            this.dataGridViewTextBoxColumn3.HeaderText = "tipo";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "escrita";
+            this.dataGridViewTextBoxColumn4.HeaderText = "escrita";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
             // Analizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,12 +219,16 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnTerminador;
-        private System.Windows.Forms.BindingSource itensDataSourceBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn linhaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn escritaDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnVariavel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.BindingSource itensDataSourceBindingSource;
     }
 }
 

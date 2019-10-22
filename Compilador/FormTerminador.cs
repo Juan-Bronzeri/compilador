@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Compilador
@@ -19,18 +12,15 @@ namespace Compilador
 
         private void PontoVirgula_Click(object sender, EventArgs e)
         {
-            StaticTerminador.SetTerminador(";");
-        }
-
-        private void btnSemTerminador_Click(object sender, EventArgs e)
-        {
-            StaticTerminador.SetTerminador("");
+            StaticTerminador.SetTerminador(';');
+            Close();
         }
 
         private void btnOutro_Click(object sender, EventArgs e)
         {
-            string aux = txtOutro.Text;
-            StaticTerminador.SetTerminador(""+aux+"");
+            char aux = Convert.ToChar(txtOutro.Text);
+            StaticTerminador.SetTerminador(aux);
+            Close();
         }
     }
 }

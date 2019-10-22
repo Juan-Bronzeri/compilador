@@ -21,6 +21,7 @@ namespace Compilador
         {
             int aux = Convert.ToInt32(txtTamanho.Text);
             StaticTamanhoVariavel.SetTamanhoVariavel(aux);
+            Close();
         }
     }
 }

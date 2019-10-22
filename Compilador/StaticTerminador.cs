@@ -8,13 +8,13 @@ namespace Compilador
 {
     static class StaticTerminador
     {
-        static private string terminador;  // the name field
+        static private char terminador;  // the name field
 
-        static public string GetTerminador()
+        static public char GetTerminador()
         {
             return terminador;
         }
-        static public void SetTerminador(string value)
+        static public void SetTerminador(char value)
         {
             terminador = value;
         }

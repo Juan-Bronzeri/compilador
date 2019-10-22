@@ -68,6 +68,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConfirmar);
             this.Name = "FormVariavel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormVariavel";
             this.ResumeLayout(false);
             this.PerformLayout();
