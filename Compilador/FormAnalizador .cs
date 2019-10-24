@@ -9,7 +9,11 @@ namespace Compilador
 {
     public partial class Analizador : Form
     {
-        IList<ItensDataSource> item = new List<ItensDataSource>();
+        private IList<ItensDataSource> item = new List<ItensDataSource>();
+        private List<string> tipo = new List<string>();
+        private string caracter;
+        private string operadores;
+        private string numeros;
 
         Regex ER = new Regex(@"\w+\s+[\w]+((\s+.)|(.))");
         public Analizador()
@@ -21,8 +25,14 @@ namespace Compilador
         bool autenticarTipoVariavel(string tipo)
         {
             bool retorno = false;
-            if (tipo == "int" || tipo == "string" || tipo == "bool" || tipo == "float")
-                retorno = true;
+            for (int i = 0; this.tipo.Count > i; i++)
+            {
+                if (this.tipo[i] == tipo)
+                {
+                    retorno = true;
+                    break;
+                }
+            }
             return retorno;
         }
 
@@ -55,7 +65,7 @@ namespace Compilador
         bool autenticarPalavraDaVariavel(string variavel)
         {
             bool retornar = false;
-            Regex var = new Regex(@"[A-Z]+|[a-z]+|[_]");
+            Regex var = new Regex(@""+caracter+@"+|[_]");
             if(variavel != "")
             {
                 string x = Convert.ToString(variavel[0]);
@@ -83,6 +93,21 @@ namespace Compilador
         }
         private void Compilar_Click(object sender, EventArgs e)
         {
+            //definir os tipos aceitos na linguagem
+            tipo.Add("string");
+            tipo.Add("int");
+            tipo.Add("float");
+            tipo.Add("bool");
+
+            //definir os caracteres aceitos na linguagem
+            caracter = "[a-zA-Z]";
+
+            //definir operadores aceitos na linguagem
+            operadores = @"\*|\-|\+|\/";
+
+            //definir numeros aceitos na linguagem
+            numeros = "[1-9]";
+
             dgvResultado.DataSource = null;
             item.Clear();
 
@@ -177,7 +202,7 @@ namespace Compilador
                             {
                                 ItensDataSource Item = new ItensDataSource();
                                 char terminador = StaticTerminador.GetTerminador();
-                                Regex ER = new Regex(@"^(|\s+)[A-Za-z]{1}[\w]{0,24}(|\s+)(=){1}((|\s+)(\()(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+)((\*|\-|\+|\/){1}(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+))*(\))|(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+)((\*|\-|\+|\/){1}(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+))*)((|\s+)(\*|\-|\+|\/){1}(|\s+)(\()(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+)((\*|\-|\+|\/){1}(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+))*(\))(((|\s+)(\*|\-|\+|\/){1}(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+)((\*|\-|\+|\/){1}(|\s+)(([A-Za-z]{1}[A-Za-z0-9]{0,24})|[0-9]{1,11}|[0-9]{1,11}\.[0-9]{1,2}){1}(|\s+))*)*(((" + terminador + @"){1})|(\s+(" + terminador + @"){1})))|(\s+)|(((" + terminador + @"){1})|(\s+(" + terminador + @"){1}))|\s+)$");
+                                Regex ER = new Regex(@"^(|\s+)" + caracter + @"{1}(" + caracter + @"|[\w]){0,24}(|\s+)(=){1}((|\s+)(\()(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores+@"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\))|(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)((|\s+)(" + operadores + @"){1}(|\s+)(\()(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\))(((|\s+)(" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)*(((" + terminador + @"){1})|(\s+(" + terminador + @"){1})))|(\s+)|(((" + terminador + @"){1})|(\s+(" + terminador + @"){1}))|\s+)$");
                                 str[i] = str[i].Replace("\n", "");
                                 str[i] = str[i].Trim();
                                 if (ER.IsMatch(str[i]) == true)
