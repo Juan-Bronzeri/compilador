@@ -14,6 +14,7 @@ namespace Compilador
         private string caracter;
         private string operadores;
         private string numeros;
+        private string[] separa;
 
         Regex ER = new Regex(@"\w+\s+[\w]+((\s+.)|(.))");
         public Analizador()
@@ -107,6 +108,11 @@ namespace Compilador
 
             //definir numeros aceitos na linguagem
             numeros = "[1-9]";
+
+            //definir separador
+            separa = new string[2];
+            separa[0] = "(";
+            separa[1] = ")";
 
             dgvResultado.DataSource = null;
             item.Clear();
@@ -202,9 +208,10 @@ namespace Compilador
                             {
                                 ItensDataSource Item = new ItensDataSource();
                                 char terminador = StaticTerminador.GetTerminador();
-                                Regex ER = new Regex(@"^(|\s+)" + caracter + @"{1}(" + caracter + @"|[\w]){0,24}(|\s+)(=){1}((|\s+)(\()(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores+@"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\))|(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)((|\s+)(" + operadores + @"){1}(|\s+)(\()(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\))(((|\s+)(" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)*(((" + terminador + @"){1})|(\s+(" + terminador + @"){1})))|(\s+)|(((" + terminador + @"){1})|(\s+(" + terminador + @"){1}))|\s+)$");
+                                Regex ER = new Regex(@"^(|\s+)" + caracter + @"{1}(" + caracter + @"|[\w]){0,24}(|\s+)(=){1}((|\s+)(\"+separa[0]+@")(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores+@"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\" + separa[1] + @")|(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)((|\s+)(" + operadores + @"){1}(|\s+)(\" + separa[0] + @")(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\" + separa[1] + @")(((|\s+)(" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)*(((.){1})|(\s+(.){1})))|(\s+)|(((.){1})|(\s+(.){1}))|\s+)$");
                                 str[i] = str[i].Replace("\n", "");
                                 str[i] = str[i].Trim();
+
                                 if (ER.IsMatch(str[i]) == true)
                                 {
                                     aux = str[i].Split(' ');
@@ -304,12 +311,6 @@ namespace Compilador
         private void btnVariavel_Click(object sender, EventArgs e)
         {
             FormVariavel form = new FormVariavel();
-            form.Show();
-        }
-
-        private void btnRegra_Click(object sender, EventArgs e)
-        {
-            FormRegras form = new FormRegras();
             form.Show();
         }
     }
