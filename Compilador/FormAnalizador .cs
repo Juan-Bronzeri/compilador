@@ -14,7 +14,7 @@ namespace Compilador
         private string caracter;
         private string operadores;
         private string numeros;
-        private string[] separa;
+        private char[] separa;
 
         Regex ER = new Regex(@"\w+\s+[\w]+((\s+.)|(.))");
         public Analizador()
@@ -66,7 +66,7 @@ namespace Compilador
         bool autenticarPalavraDaVariavel(string variavel)
         {
             bool retornar = false;
-            Regex var = new Regex(@""+caracter+@"+|[_]");
+            Regex var = new Regex(@"["+caracter+@"]+|[_]");
             if(variavel != "")
             {
                 string x = Convert.ToString(variavel[0]);
@@ -101,18 +101,18 @@ namespace Compilador
             tipo.Add("bool");
 
             //definir os caracteres aceitos na linguagem
-            caracter = "[a-zA-Z]";
+            caracter = "a-zA-Z";
 
             //definir operadores aceitos na linguagem
             operadores = @"\*|\-|\+|\/";
 
             //definir numeros aceitos na linguagem
-            numeros = "[1-9]";
+            numeros = "0-9";
 
             //definir separador
-            separa = new string[2];
-            separa[0] = "(";
-            separa[1] = ")";
+            separa = new char[2];
+            separa[0] = '(';
+            separa[1] = ')';
 
             dgvResultado.DataSource = null;
             item.Clear();
@@ -208,59 +208,78 @@ namespace Compilador
                             {
                                 ItensDataSource Item = new ItensDataSource();
                                 char terminador = StaticTerminador.GetTerminador();
-                                Regex ER = new Regex(@"^(|\s+)" + caracter + @"{1}(" + caracter + @"|[\w]){0,24}(|\s+)(=){1}((|\s+)(\"+separa[0]+@")(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores+@"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\" + separa[1] + @")|(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)((|\s+)(" + operadores + @"){1}(|\s+)(\" + separa[0] + @")(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*(\" + separa[1] + @")(((|\s+)(" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)((" + caracter + @"{1}(" + caracter + @"|" + numeros + @"){0,24})|" + numeros + @"{1,11}|" + numeros + @"{1,11}\." + numeros + @"{1,2}){1}(|\s+))*)*(((.){1})|(\s+(.){1})))|(\s+)|(((.){1})|(\s+(.){1}))|\s+)$");
+                                Regex ER = new Regex(@"^(|\s+)["+ caracter + @"]{1}[\w]{0,24}(|\s+)(=){1}((|\s+)(\()(|\s+)(([" + caracter + @"]{1}["+caracter+ @""+ numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+)((" + operadores+@"){1}(|\s+)((" + caracter + @"{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+))*(\))|(|\s+)(([" + caracter + @"]{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)(([" + caracter + @"]{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+))*)((|\s+)(" + operadores + @"){1}(|\s+)(\()(|\s+)(([" + caracter + @"]{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)(([" + caracter + @"]{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+))*(\))(((|\s+)(" + operadores + @"){1}(|\s+)(([" + caracter + @"]{1}["+caracter+ @"" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+)((" + operadores + @"){1}(|\s+)(([" + caracter + @"]{1}[" + numeros + @"]{0,24})|[" + numeros + @"]{1,11}|[" + numeros + @"]{1,11}\.[" + numeros + @"]{1,2}){1}(|\s+))*)*(((.){1})|(\s+(.){1})))|(\s+)|(((.){1})|(\s+(.){1}))|\s+)$");
                                 str[i] = str[i].Replace("\n", "");
                                 str[i] = str[i].Trim();
-
-                                if (ER.IsMatch(str[i]) == true)
+                                aux = str;
+                                int c=0, b=0;
+                                for(int x = 0; aux[i].Length > x; x++)
                                 {
-                                    aux = str[i].Split(' ');
-                                    if (autenticarTerminador(aux[aux.Length - 1]))
+                                    if(aux[i].ElementAt(x) == separa[0])
+                                        c++;
+                                    else if(aux[i].ElementAt(x) == separa[1])
+                                        b++;
+                                }
+                                if(c == b)
+                                {
+                                    aux[i] = aux[i].Replace(""+separa[0]+"", "");
+                                    aux[i] = aux[i].Replace(""+separa[1]+"", "");
+                                    if (ER.IsMatch(aux[i]) == true)
                                     {
-                                        char a = Convert.ToChar(StaticTerminador.GetTerminador());
-                                        aux = str[i].Split('+', '*', '/', '-', '=', a);
-                                        for (int x = 0; x < aux.Length; x++)
+                                        aux = aux[i].Split(' ');
+                                        if (autenticarTerminador(aux[aux.Length - 1]))
                                         {
-                                            aux[x] = aux[x].Replace("(", "");
-                                            aux[x] = aux[x].Replace(")", "");
-                                            aux[x] = aux[x].Trim();
-                                            if (!verifica(aux[x]) & aux[x] != "" & !autenticarVariavel(aux[x]))
+                                            char a = Convert.ToChar(StaticTerminador.GetTerminador());
+                                            aux = str[i].Split('+', '*', '/', '-', '=', a);
+                                            for (int x = 0; x < aux.Length; x++)
                                             {
-                                                Item.status = "ERRO";
-                                                Item.linha = Convert.ToString(i + 1);
-                                                Item.tipo = "Erro, variavel inválida";
-                                                Item.escrita = str[i] + Environment.NewLine;
-                                                item.Add(Item);
+                                                aux[x] = aux[x].Trim();
+                                                if (!verifica(aux[x]) && !autenticarVariavel(aux[x]) && aux[x] != "")
+                                                {
+                                                    Item.status = "ERRO";
+                                                    Item.linha = Convert.ToString(i + 1);
+                                                    Item.tipo = "Erro, variavel inválida";
+                                                    Item.escrita = str[i] + Environment.NewLine;
+                                                    item.Add(Item);
+                                                }
                                             }
+                                        }
+                                        else
+                                        {
+                                            Item.status = "ERRO";
+                                            Item.linha = Convert.ToString(i + 1);
+                                            Item.tipo = "Erro, terminador inválido";
+                                            Item.escrita = str[i] + Environment.NewLine;
+                                            item.Add(Item);
                                         }
                                     }
                                     else
                                     {
-                                        Item.status = "ERRO";
-                                        Item.linha = Convert.ToString(i + 1);
-                                        Item.tipo = "Erro, terminador inválido";
-                                        Item.escrita = str[i] + Environment.NewLine;
-                                        item.Add(Item);
+                                        if (str.Length == i + 1)
+                                        {
+                                            Item.status = "ERRO";
+                                            Item.linha = Convert.ToString(i + 1);
+                                            Item.tipo = "Erro de terminador 'end'";
+                                            Item.escrita = str[i] + Environment.NewLine;
+                                            item.Add(Item);
+                                        }
+                                        else
+                                        {
+                                            Item.status = "ERRO";
+                                            Item.linha = Convert.ToString(i + 1);
+                                            Item.tipo = "Erro de sintáxe";
+                                            Item.escrita = str[i] + Environment.NewLine;
+                                            item.Add(Item);
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    if (str.Length == i + 1)
-                                    {
-                                        Item.status = "ERRO";
-                                        Item.linha = Convert.ToString(i + 1);
-                                        Item.tipo = "Erro de terminador 'end'";
-                                        Item.escrita = str[i] + Environment.NewLine;
-                                        item.Add(Item);
-                                    }
-                                    else
-                                    {
-                                        Item.status = "ERRO";
-                                        Item.linha = Convert.ToString(i + 1);
-                                        Item.tipo = "Erro de sintáxe";
-                                        Item.escrita = str[i] + Environment.NewLine;
-                                        item.Add(Item);
-                                    }
+                                    Item.status = "ERRO";
+                                    Item.linha = Convert.ToString(i + 1);
+                                    Item.tipo = "Erro, Parênteses inválido";
+                                    Item.escrita = str[i] + Environment.NewLine;
+                                    item.Add(Item);
                                 }
                             }
                         }
