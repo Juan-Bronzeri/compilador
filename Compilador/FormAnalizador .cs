@@ -212,18 +212,7 @@ namespace Compilador
                                 str[i] = str[i].Replace("\n", "");
                                 str[i] = str[i].Trim();
                                 aux = str;
-                                int c=0, b=0;
-                                for(int x = 0; aux[i].Length > x; x++)
-                                {
-                                    if(aux[i].ElementAt(x) == separa[0])
-                                        c++;
-                                    else if(aux[i].ElementAt(x) == separa[1])
-                                        b++;
-                                }
-                                if(c == b)
-                                {
-                                    aux[i] = aux[i].Replace(""+separa[0]+"", "");
-                                    aux[i] = aux[i].Replace(""+separa[1]+"", "");
+                           
                                     if (ER.IsMatch(aux[i]) == true)
                                     {
                                         aux = aux[i].Split(' ');
@@ -272,15 +261,6 @@ namespace Compilador
                                             item.Add(Item);
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    Item.status = "ERRO";
-                                    Item.linha = Convert.ToString(i + 1);
-                                    Item.tipo = "Erro, Parênteses inválido";
-                                    Item.escrita = str[i] + Environment.NewLine;
-                                    item.Add(Item);
-                                }
                             }
                         }
                         i++;
